@@ -8,12 +8,12 @@ workflows:
 executors:
   linux_cpu:
     machine:
-      image: ubuntu-2004:current
-    resource_class: medium
+      image: ubuntu-2204:current
+    resource_class: large
   linux_gpu:
     machine:
-      image: ubuntu-2004-cuda-11.6:2022.09.1
-    resource_class: gpu.nvidia.medium
+      image: linux-cuda-11:default
+    resource_class: gpu.nvidia.large
   mac_m1:
     macos:
       xcode: 14.3.1
@@ -33,8 +33,8 @@ jobs:
       - run:
           name: Set up Python 3.10
           command: |
-            pyenv install -s 3.10.5
-            pyenv global 3.10.5
+            pyenv install -s 3.10.6
+            pyenv global 3.10.6
       - run:
           name: Install test dependencies
           command: pip install wait-for-it -r requirements-test.txt
@@ -67,6 +67,7 @@ jobs:
             --do-not-download-clip
             --no-half
             --disable-opt-split-attention
+            --use-cpu all
             --api-server-stop
             2>&1 | tee output.txt &
       - run:
