@@ -43,7 +43,7 @@ jobs:
             PIP_PROGRESS_BAR: "off"
       - run:
           name: Setup environment
-          command: python launch.py --exit　--skip-torch-cuda-test
+          command: python launch.py --skip-torch-cuda-test --exit
           environment:
             PIP_DISABLE_PIP_VERSION_CHECK: "1"
             PIP_PROGRESS_BAR: "off"
