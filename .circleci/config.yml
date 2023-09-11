@@ -21,7 +21,7 @@ executors:
 
 jobs:
   test:
-    executor: linux_cpu
+    executor: linux_gpu
     steps:
       - checkout
       - restore_cache:
