@@ -21,7 +21,6 @@ executors:
 
 jobs:
   test:
-    name: tests on CPU with empty model
     executor: linux_cpu
     steps:
       - checkout
