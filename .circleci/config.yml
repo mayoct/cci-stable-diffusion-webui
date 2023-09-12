@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@2.1.1
-
 workflows:
   Tests:
     jobs:
@@ -44,10 +41,16 @@ jobs:
           command: |
             pyenv install 3.10.6
             pyenv global 3.10.6
-      - python/install-packages:
-          args: wait-for-it
-          pkg-manager: pip
-          pip-dependency-file: requirements-test.txt
+      - restore_cache:
+          name: Restore pip cache
+          keys:
+            - v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}-{{.Branch}}
+      - run:
+          name: Install test dependencies
+          command: pip install wait-for-it -r requirements-test.txt
+          environment:
+            PIP_DISABLE_PIP_VERSION_CHECK: "1"
+            PIP_PROGRESS_BAR: "off"
       - run:
           name: Setup environment
           command: python launch.py --skip-torch-cuda-test --exit
@@ -57,6 +60,11 @@ jobs:
             TORCH_INDEX_URL: https://download.pytorch.org/whl/cpu
             WEBUI_LAUNCH_LIVE_OUTPUT: "1"
             PYTHONUNBUFFERED: "1"
+      - save_cache:
+          name: Save pip cache
+          key: v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}-{{.Branch}}
+          paths:
+            - ~/.cache/pip
       - run:
           name: Start test server
           command: >
