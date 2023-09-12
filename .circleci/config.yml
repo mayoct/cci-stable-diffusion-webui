@@ -9,7 +9,10 @@ workflows:
       - test:
           name: test_on_linux_cpu
           executor: linux_cpu
-
+      - test:
+          name: test_on_linux_gpu
+          executor: linux_gpu
+  
 executors:
   linux_cpu:
     machine:
