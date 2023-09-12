@@ -37,7 +37,6 @@ jobs:
         default: linux_cpu
         type: string
     executor: << parameters.executor >>
-    resource_class: large
     steps:
       - checkout
       - run:
