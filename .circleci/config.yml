@@ -7,11 +7,30 @@ workflows:
   Tests:
     jobs:
       - test
+          name: test_on_linux_cpu
+          executor: linux_cpu
+
+executors:
+  linux_cpu:
+    machine:
+      image: ubuntu-2004:current
+    resource_class: medium
+  linux_gpu:
+    machine:
+      image: ubuntu-2004-cuda-11.6:2022.09.1
+    resource_class: gpu.nvidia.medium
+  mac_m1:
+    macos:
+      xcode: 14.3.1
+    resource_class: macos.m1.large.gen1
 
 jobs:
   test:
-    machine:
-      image: ubuntu-2204:current
+    parameters:
+      executor:
+        default: linux_cpu
+        type: string
+    executor: << parameters.executor >>
     resource_class: large
     steps:
       - checkout
