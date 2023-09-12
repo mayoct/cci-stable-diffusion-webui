@@ -24,3 +24,12 @@ jobs:
           args: wait-for-it
           pkg-manager: pip
           pip-dependency-file: requirements-test.txt
+      - run:
+          name: Setup environment
+          command: python launch.py --skip-torch-cuda-test --exit
+          environment:
+            PIP_DISABLE_PIP_VERSION_CHECK: "1"
+            PIP_PROGRESS_BAR: "off"
+            TORCH_INDEX_URL: https://download.pytorch.org/whl/cpu
+            WEBUI_LAUNCH_LIVE_OUTPUT: "1"
+            PYTHONUNBUFFERED: "1"           
