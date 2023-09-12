@@ -20,3 +20,7 @@ jobs:
           command: |
             pyenv install 3.10.6
             pyenv global 3.10.6
+      - python/install-packages:
+          args: wait-for-it
+          pkg-manager: pip
+          pip-dependency-file: requirements-test.txt
