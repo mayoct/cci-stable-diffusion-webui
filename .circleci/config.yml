@@ -54,3 +54,8 @@ jobs:
             wait-for-it --service 127.0.0.1:7860 -t 600
             sleep 5
             python -m pytest -vv --junitxml=test/results.xml --cov . --cov-report=xml --verify-base-url test
+      - run:
+          name: Kill test server
+          command: curl -vv -XPOST http://127.0.0.1:7860/sdapi/v1/server-stop && sleep 10
+          when: always
+          
