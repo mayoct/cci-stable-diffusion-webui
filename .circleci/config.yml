@@ -21,7 +21,7 @@ executors:
   linux_gpu:
     machine:
       image: linux-cuda-11:default
-    resource_class: gpu.nvidia.medium.multi
+    resource_class: gpu.nvidia.medium
   mac_m1:
     macos:
       xcode: 14.3.1
