@@ -32,4 +32,19 @@ jobs:
             PIP_PROGRESS_BAR: "off"
             TORCH_INDEX_URL: https://download.pytorch.org/whl/cpu
             WEBUI_LAUNCH_LIVE_OUTPUT: "1"
-            PYTHONUNBUFFERED: "1"           
+            PYTHONUNBUFFERED: "1"
+      - run:
+          name: Start test server
+          command: >
+            python -m coverage run
+            --data-file=.coverage.server
+            launch.py
+            --skip-prepare-environment
+            --skip-torch-cuda-test
+            --test-server
+            --do-not-download-clip
+            --no-half
+            --disable-opt-split-attention
+            --use-cpu all
+            --api-server-stop
+            2>&1 | tee output.txt &                     
