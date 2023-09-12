@@ -15,3 +15,8 @@ jobs:
     resource_class: large
     steps:
       - checkout
+      - run:
+          name: Set up Python 3.10
+          command: |
+            pyenv install 3.10.5
+            pyenv global 3.10.5
