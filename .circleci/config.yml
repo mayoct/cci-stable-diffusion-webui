@@ -21,13 +21,15 @@ executors:
 
 jobs:
   test:
-    executor: linux_gpu
+    executor: linux_cpu
     steps:
       - checkout
       - restore_cache:
           name: Restore pip cache
           keys:
-            - v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}-{{.Branch}}
+            - v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-test.txt" }}-{{ checksum "launch.py" }}-{{.Branch}}
+            - v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-test.txt" }}-{{ checksum "launch.py" }}
+            - v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-test.txt" }}
             - v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}
             - v1-dependencies-{{ arch }}
       - run:
@@ -52,7 +54,7 @@ jobs:
             PYTHONUNBUFFERED: "1"
       - save_cache:
           name: Save pip cache
-          key: v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}-{{.Branch}}
+          key: v1-dependencies-{{ arch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements-test.txt" }}-{{ checksum "launch.py" }}-{{.Branch}}
           paths:
             - ~/.cache/pip
       - run:
