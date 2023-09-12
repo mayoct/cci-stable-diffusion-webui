@@ -20,8 +20,8 @@ executors:
     resource_class: medium
   linux_gpu:
     machine:
-      image: ubuntu-2004-cuda-11.6:2022.09.1
-    resource_class: gpu.nvidia.medium
+      image: linux-cuda-11:default
+    resource_class: gpu.nvidia.medium.multi
   mac_m1:
     macos:
       xcode: 14.3.1
