@@ -6,7 +6,7 @@ orbs:
 workflows:
   Tests:
     jobs:
-      - test
+      - test:
           name: test_on_linux_cpu
           executor: linux_cpu
 
