@@ -12,6 +12,9 @@ workflows:
       - test:
           name: test_on_linux_gpu
           executor: linux_gpu
+      - test:
+          name: test_on_mac_m1
+          executor: mac_m1
   
 executors:
   linux_cpu:
