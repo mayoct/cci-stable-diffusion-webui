@@ -58,4 +58,19 @@ jobs:
           name: Kill test server
           command: curl -vv -XPOST http://127.0.0.1:7860/sdapi/v1/server-stop && sleep 10
           when: always
-          
+      - run:
+          name: Show coverage
+          command: |
+            python -m coverage combine .coverage*
+            python -m coverage report -i
+            python -m coverage html -i
+      - store_artifacts:
+          name: Upload main app output
+          path: output.txt
+          destination: output
+          when: always
+      - store_artifacts:
+          name: Upload coverage HTML
+          path: htmlcov
+          destination: htmlcov
+          when: always
